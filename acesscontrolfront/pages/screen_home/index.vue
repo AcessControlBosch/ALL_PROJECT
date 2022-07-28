@@ -40,9 +40,12 @@
 </template>
 
 <script>
+
 export default {
+    //middleware: 'auth',
     name: 'screen_home'
 }
+
 </script>
 
 <style lang="scss" scoped>

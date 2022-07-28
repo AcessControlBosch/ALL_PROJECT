@@ -32,74 +32,22 @@
 
                     </div>
 
-                    <div class="line-question">
+                    <!--
+                    
+                    <div class="line-question" v-for:"question in allQuestions">
 
-                        <input type="checkbox" class="checkbox" id="dois"/>
-                        <label class="p-question" for="dois">2 - Parafusos de Fixação</label>
-                        
-
-                    </div>
-
-                    <div class="line-question">
-
-                        <input type="checkbox" class="checkbox" id="tres"/>
-                        <label class="p-question" for="tres">3 - Fiação</label>
-                        
-
-                    </div>
-
-                    <div class="line-question">
-
-                        <input type="checkbox" class="checkbox" id="quatro"/>
-                        <label class="p-question" for="quatro">4 - Mangueiras</label>
-                        
-
-                    </div>
-
-                    <div class="line-question">
-
-                        <input type="checkbox" class="checkbox" id="cinco"/>
-                        <label class="p-question" for="cinco">5 - Botão de Emergência</label>          
-
-                    </div>
-
-
-                    <div class="line-question">
-
-                        <input type="checkbox" class="checkbox" id="seis"/>
-                        <label class="p-question" for="seis">6 - Botões de Comando</label>
-                        
-
-                    </div>
-
-
-                    <div class="line-question">
-
-                        <input type="checkbox" class="checkbox" id="sete"/>
-                        <label class="p-question" for="sete">7 - Chave Geral</label>
-                        
-
-                    </div>
-
-                    <div class="line-question">
-
-                        <input type="checkbox" class="checkbox" id="oito"/>
-                        <label class="p-question" for="oito">8 - Painel elétrico fechado</label>
+                        <input type="checkbox" class="checkbox" id="um" v-model:"responseQuestions[question.id-1]"/>
+                        <label class="p-question" for="um">{{question.id}} - {{question.name}}</label>
                         
                     </div>
 
-                    <div class="line-question">
-
-                        <input type="checkbox" class="checkbox" id="nove"/>
-                        <label class="p-question" for="nove">9 - Fixação de Ferramenta</label>
-
-                    </div>
+                    -->
 
                 </div>
 
                 <div class="align-items-center">
             
-                    <button class="btn btn-sucess" v-on:click="verifyFields()">Continuar</button>
+                    <button class="btn btn-sucess" v-on:click="">Continuar</button>
                     <button class="btn btn-alert" v-on:click="$router.push('/screen_home')">Cancelar</button>
             
                 </div>
@@ -115,39 +63,54 @@
 <script>
 
 export default {
+
     name: 'screen_cvSeguranca',
 
     data(){
 
-        questions: [],
+        return{
 
-        //Questoes de busca caderno verde
-        this.$axios.get(this.$store.state.BASE_URL + "").then((response) => {
-        
-            this.questions = response.data;
-
-        }).catch((error) => {
-
-            alert("Atenção, deu errado ai parsa");
-            console.log(error);
-
-        });
-
-    
-    },
-
-    methods: {
-        
-        verifyFields: function(){
-            
-            let one = document.getElementById("um").checked;
-
-            window.location.replace("./screen_cvMeioAmbiente/")
+            allQuestions: [],
+            responseQuestions: [],
 
         }
 
     },
 
+    created(){
+
+        this.$axios.get(this.$store.state.BASE_URL + '/questoes/idMaquina').then((response) => {
+
+            this.allQuestions = response.data;
+
+            let i = 0;
+
+            for(i; i < this.allQuestions.length; i++){
+
+                this.responseQuestions[i] = false
+
+            }
+
+        }).catch((error) => {
+
+            console.log(error)
+
+        })
+
+    },
+
+
+    methods: {
+
+        verifyQuestions: function(){
+
+            
+
+
+        }
+
+
+    },
 
 }
 
@@ -157,6 +120,5 @@ export default {
 
     @import "@/layouts/_normal_pages/Screen_CvSeguranca.scss";
     @import "@/layouts/_responsividade/responsividade_grid.scss";
-
 
 </style>

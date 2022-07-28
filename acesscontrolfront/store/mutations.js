@@ -4,8 +4,4 @@ export default {
         state.usuario = payload;
     },
 
-    AREAS(state, payload){
-        state.area = payload;
-    },
-
 }
