@@ -17,7 +17,7 @@
           <input type="number" placeholder="Digite o seu EDV..." id="edv" class="input-form"/>
 
           <label for="edv" class="label-form">Área:</label>
-          <Dropdown v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selecione a área..." />
+          <Dropdown v-model="selectedArea" :options="this.dataArea" optionLabel="name" placeholder="Selecione a área..." />
 
           <div class="align-items-center">
 
@@ -43,17 +43,27 @@ export default {
 
 	return {
 
-		selectedCity: null,
-            cities: [
-                {name: 'New York', code: 'NY'},
-                {name: 'Rome', code: 'RM'},
-                {name: 'London', code: 'LDN'},
-                {name: 'Istanbul', code: 'IST'},
-                {name: 'Paris', code: 'PRS'}
-            ]
-	    }
+    selectedArea: null,
+    dataArea: [],
 
-    }
+  }
+
+},
+
+  created(){
+
+    this.$axios.get(this.$store.state.BASE_URL + "/areas").then((response) =>{
+
+      this.dataArea = response.data;
+    
+    }).catch((error) => {
+
+        console.log("Vish, deu ruim!");
+        console.log(error);
+
+    });
+
+  }
 
 }
 
