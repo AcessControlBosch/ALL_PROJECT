@@ -49,7 +49,6 @@ class Maintenance(models.Model):
     idMachineFK = models.ForeignKey(Machine, related_name="machineMaintenance", on_delete=models.CASCADE)
     idAssociateFK = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
 
-
 class ReleaseMachine(models.Model):
     date = models.DateField()
     hour = models.TimeField()
@@ -70,6 +69,3 @@ class MaintenanceOrder(models.Model):
     status = models.CharField(max_length=15)
     idMachineFK = models.ForeignKey(Machine, related_name="machineMaintenanceOrder", on_delete=models.CASCADE)
     idAssociateFK = models.ForeignKey(User, related_name="userMaintenanceOrder", on_delete=models.CASCADE)
-
-
-
