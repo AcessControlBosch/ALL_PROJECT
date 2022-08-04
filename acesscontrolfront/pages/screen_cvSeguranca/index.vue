@@ -24,30 +24,31 @@
 
                 <div class="formulario">
                     
-                    <div class="line-question">
+                    <!-- <div class="line-question">
 
                         <input type="checkbox" class="checkbox" id="um"/>
                         <label class="p-question" for="um">1 - Proteções</label>
                         
 
-                    </div>
+                    </div> -->
 
-                    <!--
                     
-                    <div class="line-question" v-for:"question in allQuestions">
+                    
+                    <div class="line-question" v-for="(question, id) in allQuestions" :key="id">
 
-                        <input type="checkbox" class="checkbox" id="um" v-model:"responseQuestions[question.id-1]"/>
-                        <label class="p-question" for="um">{{question.id}} - {{question.name}}</label>
+                        <input type="checkbox" class="checkbox" v-bind:value="idQuestion[id]" v-model="valueCheckBox"/>
+                        <label class="p-question" for="um">{{idQuestion[id]}} - {{question.question}}</label>
                         
                     </div>
-
-                    -->
-
                 </div>
-
+                <div>
+                    <ul>
+                        <li v-for="(category,id) in valueCheckBox" :key="id">{{category}}</li>
+                    </ul>
+                </div>
                 <div class="align-items-center">
             
-                    <button class="btn btn-sucess" v-on:click="">Continuar</button>
+                    <button class="btn btn-sucess" v-on:click="$router.push('/screen_cvMeioAmbiente')">Continuar</button>
                     <button class="btn btn-alert" v-on:click="$router.push('/screen_home')">Cancelar</button>
             
                 </div>
@@ -72,30 +73,41 @@ export default {
 
             allQuestions: [],
             responseQuestions: [],
-
+            valueCheckBox: [],
+            idQuestion:[]    
         }
 
     },
+    methods:{
+        checkBoxclick(){
 
+        }
+    },
     created(){
         console.log('this.$store.state.machine', this.$store.state.machine)
-        // this.$axios.get(this.$store.state.BASE_URL + '/greenbook?=' + this.$store.state.machine).then((response) => {
-        //     console.log('oi created')
-        //     this.allQuestions = response.data;
+        this.$axios.get(this.$store.state.BASE_URL + '/greenbooks/1/2').then((response) => {
+            console.log('oi created')
 
-        //     let i = 0;
 
-        //     for(i; i < this.allQuestions.length; i++){
+            this.allQuestions = response.data;
 
-        //         this.responseQuestions[i] = false
+            console.log(this.allQuestions)
 
-        //     }
+            let i = 0;
 
-        // }).catch((error) => {
+            for(i; i < this.allQuestions.length; i++){
 
-        //     console.log(error)
+                this.responseQuestions.push(this.allQuestions[i].question);
+                this.idQuestion.push(i+1);
 
-        // })
+            }
+            console.log('this.idQuestion',this.idQuestion)
+
+        }).catch((error) => {
+
+            console.log(error)
+
+        })
 
     },
 

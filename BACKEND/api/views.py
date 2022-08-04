@@ -281,7 +281,7 @@ class CourseAPI(APIView):
 
 class GreenBookAPI(APIView):
 
-    def get(self, request, pk=''):
+    def get(self, request, pk='', tq=''):
 
         if pk == '':
             greenBookResult = GreenBook.objects.all()
@@ -289,7 +289,7 @@ class GreenBookAPI(APIView):
             return Response(serializer.data)
 
         else:
-            greenBookResult = GreenBook.objects.filter(idMachineFK=pk)
+            greenBookResult = GreenBook.objects.filter(idMachineFK=pk, typeQuestion=tq)
             serializer = GreenBookTable(greenBookResult, many=True)
             return Response(serializer.data)
             

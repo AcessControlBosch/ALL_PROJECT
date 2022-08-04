@@ -28,7 +28,7 @@ urlpatterns = [
     path("courses/<int:pk>/", CourseAPI.as_view(), name="coursesParameters"),
 
     path("greenbooks/", GreenBookAPI.as_view(), name="greenbooks"),
-    path("greenbooks/<int:pk>/", GreenBookAPI.as_view(), name="greenbooksParameters"),
+    path("greenbooks/<int:pk>/<int:tq>/", GreenBookAPI.as_view(), name="greenbooksParameters"),
 
     path("maintenances/", MaintenanceAPI.as_view(), name="maintenances"),
     path("maintenances/<int:pk>/", MaintenanceAPI.as_view(), name="maintenancesParameters"),
